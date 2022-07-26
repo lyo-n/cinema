@@ -6,6 +6,7 @@ module.exports = new Sequelize(
     process.env.DB_PASSWORD, // пароль БД
     {
         dialect: 'sqlite',
-        host: './dev.sqlite'        
+        host: './dev.sqlite',
+        logging: false 
     }
 )

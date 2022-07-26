@@ -12,10 +12,10 @@ const User = sequelize.define('user', {
 
 const Item = sequelize.define('item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false},
-    rating: {type: DataTypes.INTEGER, defaultValue: 0},
+    title: {type: DataTypes.STRING, unique: true},
+    release_year: {type: DataTypes.INTEGER},
+    format: {type: DataTypes.STRING},
+    stars: {type: DataTypes.STRING}
 })
 
 
