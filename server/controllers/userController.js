@@ -23,7 +23,7 @@ class UserController {
         if (candidate) {
             return next(ApiError.badRequest('Користувач з такою електронною адресою вже існує!!!'))
         }
-        const hashPassword = await bcrypt.hash(password, 5) //хешуємо пароль, визначаємо максимальну кількість хешувань
+        const hashPassword = await bcrypt.hash(password, 5) //визначаємо максимальну кількість хешувань
         const user = await User.create({email, password: hashPassword})
         const token = generateJWT(user.id, user.email)
         return res.json({token, user})

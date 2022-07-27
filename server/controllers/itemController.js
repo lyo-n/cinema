@@ -10,92 +10,85 @@ class ItemController {
     async create (req, res, next) {
         try {
             let {title, release_year, format, stars} = req.body
-            // const {img} = req.files
-            // let fileName = uuid.v4() + ".jpg"
-            // img.mv(path.resolve(__dirname, '..', 'static', fileName))
-
             const item = await Item.create({title, release_year, format, stars})  
             return res.json(item)
         } catch (e){
+            console.log(e)
             next(ApiError.badRequest(e.message))
         }
     
     } 
 
-    async getAll (req, res) {
-        const {stars, title} = req.query
-    //////ПРАЦЮЮЧЕ
-        // let items;        
-        //     items = await Item.findAndCountAll()             
-        //     return res.json(items)
+    async getAll (req, res, next) {
+        try {
+        const {stars, title} = req.body   
+        //Дістаємо всі об'єкти з бази
+        if (!stars && !title){       
+        let items = await Item.findAndCountAll()             
+            return res.json(items)
+        } 
 
-
+        //Дістаємо об'єкт з фільмом по назві фільму, по слову
+        else if (title) {
         let itemForTitle = await Item.findAndCountAll()
         let rows = {...itemForTitle}
-        for (let i = 0; i < rows.rows.length; i++) { 
-            // // console.log(rows.rows[i].dataValues) 
-            // if (rows.rows[i].dataValues.title === null){
-            //     next();
-            // }
+        for (let i = 0; i <= rows.rows.length; i++) { 
             if (rows.rows[i].dataValues.title.includes(req.body.title) !== null) { 
-                console.log('fuck yea')//////////////////////////////////DELEEEETEEEEE
-                console.log(i)
-                let result = rows.rows.filter(item => item.dataValues.title != req.body.title)
-                return res.json(result)      
-        } else {
-            console.log("fuck u")//////////////////////////////////DELEEEETEEEEE
+                let result = rows.rows.filter(item => item.dataValues.title.includes(req.body.title) === true)
+                return res.json(result) 
+            }
         }
-            // const resultTitle = (rows.rows[i].dataValues);
-            
-        }
-    }
-
-
-
-    async getOneElement (req, res) {
-        let actors = getAll(items)
-
-        if (title) {
-            // let itemForTitle = await Item.findAndCountAll()
-            for (let i = 0; i < actors.rows.length; i++) { 
-                if (ractors.rows[i].title.includes(req.body)) { 
-                    console.log(actors.rows[i]) 
+        }   
+         //Дістаємо об'єкт з фільмом по актору, по слову
+        else if (stars) {
+            let itemForStars = await Item.findAndCountAll()
+            let rows = {...itemForStars}
+            for (let i = 0; i <= rows.rows.length; i++) { 
+                if (rows.rows[i].dataValues.title.includes(req.body.stars) !== null) { 
+                    let result = rows.rows.filter(item => item.dataValues.stars.includes(req.body.stars) === true)
+                    return res.json(result) 
                 }
             }
-            return res.json(itemForTitle)
-
-
-
-/////Потрібно!!!
-
-        // let {title} =  req.body
-        // let {stars} = req.body
-        // if (title){
-        // const item = await Item.findOne({where: {title}})
-        // return res.json(item)
-        // } else if (stars) {
-        //     // const item = await Item.findOne({where: {stars}}
-        //     const item = await Item.findOne({where: {stars}})
-            
-        //     // console.log({stars})
-        //     return res.json(item)
-            
-            
-        // }
+        }
+        } catch (e) {
+            console.log(e)
+            next(ApiError.badRequest(e.message))
+        }
     }
-}
 
-
-
-    async getOne (req, res) {
+    async getOne (req, res, next) {
+        try {
         const {id} =  req.params
-        const item = await Item.findOne(
-            {
-                where: {id}
-            }
-        )
-        return res.json(item)
+        const item = await Item.findOne({where: {id}})
+            return res.json(item)
+        } catch (e) {
+            console.log(e)
+            next(ApiError.badRequest(e.message))
+        }
     }
+
+    async delete (req, res, next) {
+        try {
+            // const searchName = req.body.search
+            const {id} =  req.body
+            const item = await Item.findOne(
+                {
+                    where: {id}
+                }
+            )
+            if (!item) {
+                return res.status(400).json({message: 'Фільм не знайдено'})
+            }
+            await item.destroy()
+            return res.json({message: 'Фільм видалено'})
+        } catch (e) {
+            console.log(e)
+            next(ApiError.badRequest(e.message))
+        }
+
+    }
+
+
 }
 
 module.exports = new ItemController()
