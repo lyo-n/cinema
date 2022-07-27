@@ -22,6 +22,7 @@ class ItemController {
     async getAll (req, res, next) {
         try {
         const {stars, title} = req.body   
+        
         //Дістаємо всі об'єкти з бази
         if (!stars && !title){       
         let items = await Item.findAndCountAll()             
@@ -29,12 +30,12 @@ class ItemController {
         } 
 
         //Дістаємо об'єкт з фільмом по назві фільму, по слову
-        else if (title) {
+        if (title) {
         let itemForTitle = await Item.findAndCountAll()
         let rows = {...itemForTitle}
         for (let i = 0; i <= rows.rows.length; i++) { 
-            if (rows.rows[i].dataValues.title.includes(req.body.title) !== null) { 
-                let result = rows.rows.filter(item => item.dataValues.title.includes(req.body.title) === true)
+            if (rows.rows[i].dataValues.title.includes({title}.title) !== null) { 
+                let result = rows.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
                 return res.json(result) 
             }
         }
@@ -44,8 +45,8 @@ class ItemController {
             let itemForStars = await Item.findAndCountAll()
             let rows = {...itemForStars}
             for (let i = 0; i <= rows.rows.length; i++) { 
-                if (rows.rows[i].dataValues.title.includes(req.body.stars) !== null) { 
-                    let result = rows.rows.filter(item => item.dataValues.stars.includes(req.body.stars) === true)
+                if (rows.rows[i].dataValues.title.includes({stars}.stars) !== null) { 
+                let result = rows.rows.filter(item => item.dataValues.stars.includes({stars}.stars) === true)
                     return res.json(result) 
                 }
             }

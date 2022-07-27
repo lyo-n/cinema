@@ -5,9 +5,43 @@ const models = require('./models/models')
 const cors = require('cors')
 const router = require('./routes/index')
 const errorHandlerMiddleware = require('./middleware/ErrorHandlingMiddleware')
-const path = require('path')
 
 const PORT = process.env.PORT || 8049
+
+
+
+
+
+// const fs = require("fs")
+
+//     fs.readFile("./sample_movies.txt", 'utf-8', (error, data) => {
+//         console.log(data)
+//         fs.mkdirSync("./files", () => {});
+//     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const app = express()
