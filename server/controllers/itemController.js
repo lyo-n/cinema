@@ -32,46 +32,37 @@ class ItemController {
         //Сортуємо у алфавітному порядку
         else if (sort === true) {
             let items = await Item.findAndCountAll()
-            let rows = {...items}
+            let arr = {...items}
             function compare(a, b) {
-                if (a.dataValues.title < b.dataValues.title)
-                return -1;
-                if (a.dataValues.title > b.dataValues.title)
-                return 1;
+                if (a.dataValues.title < b.dataValues.title){
+                    return -1;
+                }
+                if (a.dataValues.title > b.dataValues.title){
+                    return 1;
+                }
             return 0;
             }
-                return res.json(rows.rows.sort(compare))
-
-
-            
-
-            // for (let i = 0; i <= rows.rows.length; i++) { 
-            //     if (rows.rows[i].dataValues.title.includes({title}.title) !== null) { 
-            //         let result = rows.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
-            //         return res.json(result) 
-            //     }
-            // }
-           
+            return res.json(arr.rows.sort(compare))            
         }
 
         //Дістаємо об'єкт з фільмом по назві фільму, по слову
         else if (title) {
-        let itemForTitle = await Item.findAndCountAll()
-        let rows = {...itemForTitle}
-        for (let i = 0; i <= rows.rows.length; i++) { 
-            if (rows.rows[i].dataValues.title.includes({title}.title) !== null) { 
-                let result = rows.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
+        let items = await Item.findAndCountAll()
+        let arr = {...items}
+        for (let i = 0; i <= arr.rows.length; i++) { 
+            if (arr.rows[i].dataValues.title.includes({title}.title) !== null) { 
+                let result = arr.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
                 return res.json(result) 
             }
         }
         }   
          //Дістаємо об'єкт з фільмом по актору, по слову
         else if (stars) {
-            let itemForStars = await Item.findAndCountAll()
-            let rows = {...itemForStars}
-            for (let i = 0; i <= rows.rows.length; i++) { 
-                if (rows.rows[i].dataValues.title.includes({stars}.stars) !== null) { 
-                let result = rows.rows.filter(item => item.dataValues.stars.includes({stars}.stars) === true)
+            let items = await Item.findAndCountAll()
+            let arr = {...items}
+            for (let i = 0; i <= arr.rows.length; i++) { 
+                if (arr.rows[i].dataValues.title.includes({stars}.stars) !== null) { 
+                let result = arr.rows.filter(item => item.dataValues.stars.includes({stars}.stars) === true)
                     return res.json(result) 
                 }
             }
