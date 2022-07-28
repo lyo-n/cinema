@@ -33,12 +33,14 @@ class ItemController {
         else if (sort === true) {
             let items = await Item.findAndCountAll()
             let rows = {...items}
-            rows.rows.sort(function (a, b) {
-                
-            //     (a.dataValues.title, b.dataValues.title){
-                return res.json(a.dataValues.title - b.dataValues.title)
+            function compare(a, b) {
+                if (a.dataValues.title < b.dataValues.title)
+                return -1;
+                if (a.dataValues.title > b.dataValues.title)
+                return 1;
+            return 0;
             }
-            )
+                return res.json(rows.rows.sort(compare))
 
 
             
