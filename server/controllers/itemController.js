@@ -21,16 +21,39 @@ class ItemController {
 
     async getAll (req, res, next) {
         try {
-        const {stars, title} = req.body   
+        const {stars, title, sort} = req.body   
         
         //Дістаємо всі об'єкти з бази
-        if (!stars && !title){       
-        let items = await Item.findAndCountAll()             
+        if (!stars && !title && !sort){       
+        let items = await Item.findAndCountAll()     
             return res.json(items)
         } 
 
+        //Сортуємо у алфавітному порядку
+        else if (sort === true) {
+            let items = await Item.findAndCountAll()
+            let rows = {...items}
+            rows.rows.sort(function (a, b) {
+                
+            //     (a.dataValues.title, b.dataValues.title){
+                return res.json(a.dataValues.title - b.dataValues.title)
+            }
+            )
+
+
+            
+
+            // for (let i = 0; i <= rows.rows.length; i++) { 
+            //     if (rows.rows[i].dataValues.title.includes({title}.title) !== null) { 
+            //         let result = rows.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
+            //         return res.json(result) 
+            //     }
+            // }
+           
+        }
+
         //Дістаємо об'єкт з фільмом по назві фільму, по слову
-        if (title) {
+        else if (title) {
         let itemForTitle = await Item.findAndCountAll()
         let rows = {...itemForTitle}
         for (let i = 0; i <= rows.rows.length; i++) { 
