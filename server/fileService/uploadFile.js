@@ -1,5 +1,7 @@
+const express = require("express");
 const fs = require("fs") //винести 
 const multer = require('multer') //винести
+const {Item} = require('../models/models')
 
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) =>{
@@ -9,8 +11,8 @@ const storageConfig = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
-const upload = function (req, res, next) {
+class FileController {
+    async upload (req, res, next) {
     
     let filedata = req.file;
     if(!filedata) {
@@ -25,22 +27,40 @@ const upload = function (req, res, next) {
             for (let i = 0; i<splitted.length; i++) {
                 if (splitted){
                 let tempObj = {};
+                
                     splitted[i].split("\n").forEach(element => {
                         let splitLine = element.split(":");
-                        console.log("🚀 ~ file: index.js ~ line 54 ~ fs.readFile ~ splitLine", splitLine)
-                        console.log("🚀 ~ file: index.js ~ line 53 ~ fs.readFile ~ element", element)
                         if (element){
-                            tempObj[splitLine[0]] = splitLine[1].trim();
+                            tempObj[splitLine[0].replace(/\s+/g,'')] = splitLine[1].trim();
                         }
                     })
                     obj.push(tempObj)
-                    console.log("🚀 ~ file: index.js ~ line 52 ~ fs.readFile ~ tempObj", tempObj)
+                    
+                    return obj
                 }
-            }
-            console.log("🚀 ~ file: index.js ~ line 61 ~ splitted[i].split ~ obj", obj)
+                console.log("🚀 ~ file: uploadFile.js ~ line 26 ~ FileController ~ fs.readFile ~ obj", obj[5])
+            };
             
         });
+        
     }
 }
 
-module.exports = {upload, storageConfig}
+async create (req, res, next) {
+//         try {
+//             obj.forEach(element => {
+//                 if (element.title != Item[element].title) {
+                                        
+//                     const items = Item.create({title: element.Title, release_year:  element.ReleaseYear, format: element.Format, stars: element.Stars})
+//                     // console.log("🚀 ~ file: uploadFile.js ~ line 46 ~ fs.readFile ~ item", item)
+//                     return res.json(items)
+//                 }
+//             })
+            
+            
+//         } catch (e) {
+//             // console.log(e)
+//         }
+}
+}
+module.exports = new FileController()

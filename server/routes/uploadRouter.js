@@ -1,9 +1,9 @@
 const Router = require('express')
 const router = new Router()
-const ItemUploadController = require('../controllers/fileController')
+// const ItemUploadController = require('../controllers/fileController')
 
 
 
-router.post('/', ItemUploadController.create)
+router.post('/')
 
 module.exports = router
