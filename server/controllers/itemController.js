@@ -1,5 +1,3 @@
-// const uuid = require('uuid')
-// const path = require('path')
 const ApiError = require('../errors/ApiErrors')
 const {Item} = require('../models/models')
 
