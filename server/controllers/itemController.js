@@ -47,19 +47,19 @@ class ItemController {
 
         //Дістаємо об'єкт з фільмом по назві фільму, по слову
         else if (title) {
-        let items = await Item.findAndCountAll()
-        let arr = {...items}
-        for (let i = 0; i <= arr.rows.length; i++) { 
+            let items = await Item.findAndCountAll()
+            let arr = {...items}
+        for (let i = 0; i <= arr.rows.length; i++) {
             if (arr.rows[i].dataValues.title.includes({title}.title) !== null) { 
                 let result = arr.rows.filter(item => item.dataValues.title.includes({title}.title) === true)
-                return res.json(result) 
+            return res.json(result) 
             }
         }
         }   
          //Дістаємо об'єкт з фільмом по актору, по слову
         else if (stars) {
-            let items = await Item.findAndCountAll()
-            let arr = {...items}
+                let items = await Item.findAndCountAll()
+                let arr = {...items}
             for (let i = 0; i <= arr.rows.length; i++) { 
                 if (arr.rows[i].dataValues.title.includes({stars}.stars) !== null) { 
                 let result = arr.rows.filter(item => item.dataValues.stars.includes({stars}.stars) === true)
@@ -75,8 +75,8 @@ class ItemController {
 
     async getOne (req, res, next) {
         try {
-        const {id} =  req.params
-        const item = await Item.findOne({where: {id}})
+            const {id} =  req.params
+            const item = await Item.findOne({where: {id}})
             return res.json(item)
         } catch (e) {
             console.log(e)
@@ -86,13 +86,8 @@ class ItemController {
 
     async delete (req, res, next) {
         try {
-            // const searchName = req.body.search
             const {id} =  req.body
-            const item = await Item.findOne(
-                {
-                    where: {id}
-                }
-            )
+            const item = await Item.findOne({where: {id}})
             if (!item) {
                 return res.status(400).json({message: 'Фільм не знайдено'})
             }

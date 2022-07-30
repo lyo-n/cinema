@@ -1,17 +1,25 @@
 require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
-const multer = require('multer') //винести
-const {upload, storageConfig, create} = require('./fileService/uploadFile')
-
-const path = require('path')
-const models = require('./models/models')
+const multer = require('multer') 
+const {upload} = require('./controllers/fileController')
 const cors = require('cors')
 const router = require('./routes/index')
-const FileController = require('./fileService/uploadFile')
 const errorHandlerMiddleware = require('./middleware/ErrorHandlingMiddleware')
 
+
+
 const PORT = process.env.PORT || 8049
+
+
+const storageConfig = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) =>{
+        cb(null, file.originalname);
+    }
+});
 
 
 
@@ -20,8 +28,27 @@ app.use(cors())
 app.use(express.json())
 app.use('/cinema', router)  
 app.use(express.static(__dirname))
+
+
+
+
 app.use(multer({storage:storageConfig }).single("filedata"))
-app.post("/upload", FileController.upload)
+app.post("/upload", upload)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
