@@ -22,13 +22,13 @@ class ItemController {
         const {stars, title, sort} = req.body   
         
         //Дістаємо всі об'єкти з бази
-        if (!stars && !title && !sort){       
+        if (sort === false){       
         let items = await Item.findAndCountAll()     
             return res.json(items)
         } 
 
         //Сортуємо у алфавітному порядку
-        else if (sort === true) {
+        else if (sort === true ) {
             let items = await Item.findAndCountAll()
             let arr = {...items}
             function compare(a, b) {
@@ -40,15 +40,10 @@ class ItemController {
                 }
             return 0;
             }
-            // let result = arr.rows;
-            
-            // result.forEach(element => {
-            //     let item  = element.dataValues.title
-            // })
             return res.json(arr.rows.sort(compare))            
         }
 
-        //Дістаємо об'єкт з фільмом по назві фільму, по слову
+        //Дістаємо об'єкт з фільмом по назві фільму
         else if (title) {
             let items = await Item.findAndCountAll()
             let arr = {...items}
@@ -59,7 +54,7 @@ class ItemController {
             }
         }
         }   
-         //Дістаємо об'єкт з фільмом по актору, по слову
+         //Дістаємо об'єкт з фільмом по актору
         else if (stars) {
                 let items = await Item.findAndCountAll()
                 let arr = {...items}

@@ -7,10 +7,7 @@ const cors = require('cors')
 const router = require('./routes/index')
 const errorHandlerMiddleware = require('./middleware/ErrorHandlingMiddleware')
 
-
-
 const PORT = process.env.PORT || 8049
-
 
 const storageConfig = multer.diskStorage({
     destination: (req, file, cb) =>{
@@ -21,40 +18,14 @@ const storageConfig = multer.diskStorage({
     }
 });
 
-
-
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use('/cinema', router)  
 app.use(express.static(__dirname))
-
-
-
-
 app.use(multer({storage:storageConfig }).single("filedata"))
-app.post("/upload", upload)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.post("/cinema/upload", upload)
 app.use(errorHandlerMiddleware)
-
 
 const start = async() => {
     try {
