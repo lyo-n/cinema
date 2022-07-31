@@ -12,7 +12,7 @@ const User = sequelize.define('user', {
 
 const Item = sequelize.define('item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING},
+    title: {type: DataTypes.STRING, unique: false},
     release_year: {type: DataTypes.INTEGER},
     format: {type: DataTypes.STRING},
     stars: {type: DataTypes.STRING}
