@@ -6,7 +6,7 @@ npm run dev
 
 
 
-http://localhost:8050/
+http://localhost:8000/
 
 Додаток може:
 
