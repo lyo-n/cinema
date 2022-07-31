@@ -40,6 +40,11 @@ class ItemController {
                 }
             return 0;
             }
+            // let result = arr.rows;
+            
+            // result.forEach(element => {
+            //     let item  = element.dataValues.title
+            // })
             return res.json(arr.rows.sort(compare))            
         }
 
