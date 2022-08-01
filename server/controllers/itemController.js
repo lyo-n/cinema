@@ -95,10 +95,7 @@ class ItemController {
             console.log(e)
             next(ApiError.badRequest(e.message))
         }
-
     }
-
-
 }
 
 module.exports = new ItemController()
