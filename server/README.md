@@ -68,22 +68,26 @@ npm run dev
 8. Видаляти фільм по ID - **DELETE**
     */cinema/item*
 Запит 
+```
     {
         "id": 77
     }
-
+```
 9. Реєстрація користувача - **POST**
     */user/registration*
 Запит
+```
     {
         "email": "example@gmail.com",
         "password": "123456"
     }
-
+```
 10.  Вхід в систему - **POST**
    */user/login*
 Запит
+```
     {
         "email": "example@gmail.com",
         "password": "123456"
     }
+```
