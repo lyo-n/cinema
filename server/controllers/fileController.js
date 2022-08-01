@@ -7,9 +7,7 @@ class FileController {
     
     async upload (req, res, next) {
         try {
-            let items = await Item.findAndCountAll()     
-                console.log("🚀 ~ file: fileController.js ~ line 10 ~ FileController ~ upload ~ items", items)
-        let obj = [];
+            let items = await Item.findAndCountAll()   
     let filedata = req.file;
     if(!filedata) {
         res.send("Помилка при завантаження файлу");
@@ -26,12 +24,7 @@ class FileController {
                     if (element){
                         tempObj[splitLine[0].replace(/\s+/g,'')] = splitLine[1].trim();
                     }
-                    // obj.push(tempObj)
                 })
-
-
-                        ///робоче
-
                 if (JSON.stringify(tempObj) !== '{}'){
                         const items = Item.create(
                             {
@@ -39,28 +32,8 @@ class FileController {
                                 release_year: tempObj.ReleaseYear, 
                                 format: tempObj.Format, 
                                 stars: tempObj.Stars
-                            })
-                        
-                        
-                            console.log(items) 
+                            })                  
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
             }
         };
     });
