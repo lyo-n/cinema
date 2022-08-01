@@ -1,6 +1,6 @@
 **Docker started:**
 ```
-docker run --name movies -p 8050:8050 -e APP_PORT=8050 movies
+docker run --name movies -p 8000:8050 -e APP_PORT=8050 movies
 ```
 
 **Local started:**
