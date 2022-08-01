@@ -11,7 +11,7 @@ http://localhost:8000/
 Додаток може:
 
 1. Завантаження файлу який запишеться в бд SQlite
-    /upload
+    /cinema/upload
     form-data
     key - filedata : values - file
 
